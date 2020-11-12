@@ -1,0 +1,15 @@
+<style>
+form {
+    margin: auto;
+    padding: 4px;
+    width: 0%;
+
+}
+.type1 {
+    margin: auto;
+    width: 53%;
+    padding: 6px;
+    border-bottom: solid;
+    border-color: gray;
+}
+</style>
