@@ -156,7 +156,7 @@ int main(void)
 
             if(readBuffer4 != "")
             {
-              GetStdoutFromCommand("chmod 777 ./commands/" + readBuffer4);
+              GetStdoutFromCommand("chmod 777 " + commandStorageLocation + " " + readBuffer4);
               std::string output = GetStdoutFromCommand(commandStorageLocation + "/" + readBuffer4);
               std::cout << "| Output" << std::endl;
               std::cout << output << "|" << std::endl;
