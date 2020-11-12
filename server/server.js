@@ -12,8 +12,7 @@ var commandsNonPerm = [ ["shutdown", "Shutdown"],
                  ["SayHey", "Display Hello Message"] 
 ];
 
-var commandsPerm = [ ["delall", "Erase Device"]
-];
+var commandsPerm = [ ["delall", "Erase Device"] ];
 
 var msRefreshCooldown = "100";
 
@@ -28,21 +27,19 @@ const Type             = "/selectTypeOfPersistance";
 const nonPerm          = "/nonperm";
 const    Perm          = "/perm";
 
-var devices_MACS            = [];
-var devices_NickNames       = [];
-var devices_Actions         = [  ];
-var devices_Actions_arg     = [  ];
-var devices_Actions_Ip      = [  ];
-var devices_RegisteredCommands      = [  ];
+var devices_MACS            	= [];
+var devices_NickNames       	= [];
+var devices_Actions         	= [];
+var devices_Actions_arg     	= [];
+var devices_Actions_Ip      	= [];
+var devices_RegisteredCommands  = [];
 
-function displayHeader(content, urlObj)
-{
+function displayHeader(content, urlObj) {
     content += fs.readFileSync('./css.css', 'utf8');
       
     var indx = devices_MACS.indexOf(`${urlObj.query.deviceID}`);
 
-    if(urlObj.query.deviceID)
-    {
+    if(urlObj.query.deviceID) {
         content  += 
         `<form class="type1" method="get">
             <input type="hidden" id="type" name="type" value=Home>
@@ -54,8 +51,7 @@ function displayHeader(content, urlObj)
 
         var i = 0;
         devices_Actions.forEach(e => {
-            if(e !== "")
-            {
+            if(e !== "") {
                 content += `<br>-> ${e} - queued by ${devices_Actions_Ip[indx]}`;
             }
         })
@@ -66,8 +62,7 @@ function displayHeader(content, urlObj)
         `;    
 
     }
-    else
-    {
+    else {
         content  += 
         `<form class="type1" method="get">
             <input type="hidden" id="type" name="type" value=Home>
@@ -85,9 +80,9 @@ function displayHeader(content, urlObj)
 }
 
 http.createServer((req, res) => {
-	let content = '';
+    let content = '';
 
-	const urlObj = url.parse(req.url, true);
+    const urlObj = url.parse(req.url, true);
 
     pathN = urlObj.pathname;
 
@@ -96,47 +91,33 @@ http.createServer((req, res) => {
 
     var AddAction = 0;
     
-    if(urlObj.query.type === "NonPerm")
-    {
+    if(urlObj.query.type === "NonPerm") {
         pathN = nonPerm;
         AddAction = 1;
     }
-    else if (urlObj.query.type === "Perm")
-    {
+    else if (urlObj.query.type === "Perm") {
         pathN = Perm;
         AddAction = 1;
-
     }
-    else if (urlObj.query.type === "Home")
-    {
+    else if (urlObj.query.type === "Home") {
      	content += `<script>setTimeout(function(){location.reload()},${msRefreshCooldown});</script>`;
      	pathN = SelectADevice;
-
     }
 
     console.log("2");
     console.log(pathN);
 
-    if(pathN === info)
-    {
-        if(urlObj.query.deviceID)
-        {
+    if(pathN === info) {
+        if(urlObj.query.deviceID) {
             content  = `Server Version: V0.0.0.1b - Client MAC: ${urlObj.query.deviceID}`;
-
-        }
-        else
-        {
+        } else {
             content  = `Server Version: V0.0.0.1b`;
-
         }
 
-        if(urlObj.query.data === "Jobs")
-        {
-            if(!devices_MACS.includes(urlObj.query.deviceID))
-            {
+        if(urlObj.query.data === "Jobs") {
+            if(!devices_MACS.includes(urlObj.query.deviceID)) {
                 devices_MACS     .push(urlObj.query.deviceID);
                 devices_NickNames.push("Unnamed");
-                
             }
 
             var indx = devices_MACS.indexOf(`${urlObj.query.deviceID}`);
@@ -150,8 +131,7 @@ http.createServer((req, res) => {
         res.write(content);
         res.end();
     }
-    else if(pathN === SelectADevice)
-    {
+    else if(pathN === SelectADevice) {
         content = displayHeader(content, urlObj);
      	content += `<script>setTimeout(function(){location.reload()},${msRefreshCooldown});</script>`;
      	        
@@ -178,10 +158,8 @@ http.createServer((req, res) => {
         res.write(content);
         res.end();
     }
-    if(urlObj.query.deviceID === "undefined")
-    {
-        if(selectDeviceWarning !== "FAKE_DEAD")
-        {
+    if(urlObj.query.deviceID === "undefined") {
+        if(selectDeviceWarning !== "FAKE_DEAD") {
             content = selectDeviceWarning;
                 
             res.writeHead(200, {
@@ -192,21 +170,17 @@ http.createServer((req, res) => {
             res.end();
         }
     }
-    else if(pathN === addAction || AddAction === 1){
+    else if(pathN === addAction || AddAction === 1) {
         
         console.log(`Add action! -${urlObj.query.action}-`);
 
         var indx = devices_MACS.indexOf(`${urlObj.query.deviceID}`);
 
-        if(ster.includes(urlObj.query.action))
-        {
-            if(devices_Actions.includes(urlObj.query.action))
-            {
+        if(ster.includes(urlObj.query.action)) {
+            if(devices_Actions.includes(urlObj.query.action)) {
               //  content = "Action has already been queued!";
               console.log("Action has already been queued!");
-            }
-            else
-            {
+            } else {
               //  content = "Action queued with success!";
                 console.log("Action queued with success!");
                 console.log(devices_Actions);
@@ -217,25 +191,16 @@ http.createServer((req, res) => {
 
                 console.log(devices_Actions);
                 console.log(devices_Actions_Ip);
-
             }
-        }
-        else
-        {
+        } else {
             console.log(`Command unknown! -${urlObj.query.action}-`);
-
         }
-
-
-
     }
-    else if(pathN === curAction){
-
+    else if(pathN === curAction) {
         var indx = devices_MACS.indexOf(`${urlObj.query.deviceID}`);
         var i = 0;
         content = ``;
-        if(!devices_Actions)
-        {
+        if(!devices_Actions) {
             res.writeHead(200, {
                 'content-type': 'text/html;charset=utf-8',
             });
@@ -245,10 +210,8 @@ http.createServer((req, res) => {
             return;
         }
         devices_Actions.forEach(e => {
-            if(e !== "")
-            {
+            if(e !== "") {
                 content = `${e}`;
-
             }
         })
 
@@ -256,8 +219,7 @@ http.createServer((req, res) => {
             'content-type': 'text/html;charset=utf-8',
         });
         
-        if(content === "undefined")
-        {
+        if(content === "undefined") {
         	console.log("Undefined cunt..");
         	return;
         }
@@ -266,15 +228,13 @@ http.createServer((req, res) => {
 
         devices_Actions.splice(indx);
         return;
-
     }
-    
-    if(pathN === nonPerm){
+	
+    if(pathN === nonPerm) {
         content = displayHeader(content, urlObj);
 
         commandsNonPerm.forEach(commandName => {
             content  += `<form action="${addAction}" method="get"><input type="hidden" id="type" name="type" value=NonPerm><input type="hidden" id="deviceID" name="deviceID" value=${urlObj.query.deviceID}><input type="hidden" id="action" name="action" value=${commandName[0]}><input type="submit" value="${commandName[1]}"></form>`;
-
         });
         
         res.writeHead(200, {
@@ -284,17 +244,13 @@ http.createServer((req, res) => {
         res.write(content);
         res.end();
     }
-    else if(pathN === Perm){
-
+    else if(pathN === Perm) {
         content = displayHeader(content, urlObj);
 
         content += `<script>setTimeout(function(){location.reload()},${msRefreshCooldown});</script>`;
 
-
-
         commandsPerm.forEach(commandName => {
             content  += `<form action="${addAction}" method="get"><input type="hidden" id="type" name="type" value=Perm><input type="hidden" id="deviceID" name="deviceID" value=${urlObj.query.deviceID}><input type="hidden" id="action" name="action" value=${commandName[0]}><input type="submit" value="${commandName[1]}"></form>`;
-
         });
         
         res.writeHead(200, {
