@@ -43,10 +43,11 @@ std::string commandList = "";
 
 int main(void)
 {
-  std::string httpType = "";
-  std::string hostname  = "";
-  std::string port      = "";
+  std::string httpType               = "";
+  std::string hostname               = "";
+  std::string port                   = "";
   std::string commandStorageLocation = "";
+
   std::ifstream infile("/screamingmars/conf.t");
 
   std::cout << "Screaming Mars Config" << std::endl;
@@ -77,9 +78,6 @@ int main(void)
   std::cout << path << std::endl;
 
   while(true) {
-
-    break;
-      //GetStdoutFromCommand("sudo apt install net-tools -y");
       
       CURL *curl;
       CURLcode res;
@@ -137,11 +135,6 @@ int main(void)
           while(true)
           {
             commandList = GetStdoutFromCommand("ls ./commands/");
-            std::cout << " " << std::endl;
-            std::cout << " " << std::endl;
-            std::cout << " " << std::endl;
-            std::cout << " " << std::endl;
-            std::cout << " " << std::endl;
             std::cout << "-----------------------------------------" << std::endl;
             std::cout << commandList << std::endl;
             std::cout << "======" << std::endl;
@@ -173,9 +166,6 @@ int main(void)
             std::cout << "###############################################" << std::endl;
 
           }
-
-        // std::string deviceID = GetStdoutFromCommand("./test.sh ").substr(14, 17);
-
       }
   }
   return 0; 
