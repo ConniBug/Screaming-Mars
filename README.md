@@ -12,19 +12,17 @@ node server.js
 
 # Setting up Client
 
-// Install dependancies
 sudo apt-get upgrade -y 
 sudo apt-get update  -y 
 sudo apt-get install -y libcurl-dev 
 sudo apt-get install -y net-tools
 
-// Setup fs
 sudo mkdir /screamingmars/src/
 sudo mkdir /screamingmars/src/build/
 sudo mkdir /screamingmars/commands/
 
+mv ./conf.t /screamingmars/
 
-// Build
 g++ hello.cpp -o ./build/out -lcurl
 
 ./build/out
