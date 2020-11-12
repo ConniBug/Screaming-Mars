@@ -8,18 +8,18 @@
 #include <net/if.h>   //ifreq
 #include <unistd.h>   //close
 
-// basic file operations
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <string>
 
-static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp)
-{
+std::string commandList = "";
+static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp) {
     ((std::string*)userp)->append((char*)contents, size * nmemb);
     return size * nmemb;
 }
 
 std::string GetStdoutFromCommand(std::string cmd) {
-
     std::string data;
     FILE * stream;
     const int max_buffer = 256;
@@ -31,18 +31,11 @@ std::string GetStdoutFromCommand(std::string cmd) {
       while (!feof(stream))
         if (fgets(buffer, max_buffer, stream) != NULL) data.append(buffer);
           pclose(stream);
-      }
+    }
     return data;
 }
 
-#include <fstream>
-#include <sstream>
-#include <string>
-
-std::string commandList = "";
-
-int main(void)
-{
+int main(void) {
   std::string httpType               = "";
   std::string hostname               = "";
   std::string port                   = "";
@@ -54,8 +47,7 @@ int main(void)
 
   int cnfOffset = 0;
   int lnCnt = 0;
-  for( std::string line; getline( infile, line ); )
-  {
+  for( std::string line; getline( infile, line ); ) {
     switch(lnCnt) {
       case(1):    // LINE 2
         httpType = line;
@@ -70,15 +62,14 @@ int main(void)
         commandStorageLocation = line;
         break;
     }
-      std::cout << ": " << line << std::endl;
-      lnCnt++;
+    std::cout << ": " << line << std::endl;
+    lnCnt++;
   }
 
   std::string path = httpType + "://" + hostname + ":" + port;
   std::cout << path << std::endl;
 
   while(true) {
-      
       CURL *curl;
       CURLcode res;
       std::string readBuffer;
@@ -95,7 +86,6 @@ int main(void)
       curl3 = curl_easy_init();
 
       if(curl) {
-
           std::string deviceID = GetStdoutFromCommand("ifconfig | grep ether").substr(14, 17);
           std::string url = path + "/info?deviceID=" + deviceID;
 
@@ -132,8 +122,7 @@ int main(void)
           curl_easy_cleanup(curl3);
           std::cout << "|" << readBuffer3 << "|" << std::endl;
 
-          while(true)
-          {
+          while(true) {
             commandList = GetStdoutFromCommand("ls ./commands/");
             std::cout << "-----------------------------------------" << std::endl;
             std::cout << commandList << std::endl;
@@ -154,8 +143,7 @@ int main(void)
             curl_easy_cleanup(curl4);
             std::cout << "|" << readBuffer4 << "|" << std::endl;
 
-            if(readBuffer4 != "")
-            {
+            if(readBuffer4 != "") {
               GetStdoutFromCommand("chmod 777 " + commandStorageLocation + " " + readBuffer4);
               std::string output = GetStdoutFromCommand(commandStorageLocation + "/" + readBuffer4);
               std::cout << "| Output" << std::endl;
@@ -164,11 +152,8 @@ int main(void)
               break;
             }
             std::cout << "###############################################" << std::endl;
-
           }
       }
   }
   return 0; 
-
 }
-
