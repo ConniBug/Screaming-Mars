@@ -7,9 +7,9 @@ but is assumed to work on windows with a little compatibility
 # Contributing
 I am fully open to pull requests if what you have done is cool or helpful then your pull will be accepted
 
-# Setup
+# Setting up server
 
-### Setting up server
+### Installation
 ```
 sudo apt-get update -y 
 sudo apt-get install -y libcurl-dev 
@@ -21,7 +21,8 @@ sudo npm install url
 node    server.js
 nodemon server.js 
 ```
-### Setting up Client
+
+# Setting up Client
 
 ### Config
 
@@ -31,7 +32,7 @@ the formatting of this file is shown in `conf.t.example`
 dont change the line space or anything about its order or what line the values are on 
 as the code reads specific lines and passes them as the config values
 
-
+### Installation
 ```
 sudo apt-get upgrade -y 
 sudo apt-get update  -y 
