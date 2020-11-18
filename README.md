@@ -10,7 +10,7 @@ I am fully open to pull requests if what you have done is cool or helpful then y
 # Setup
 
 ### Setting up server
-`
+```
 sudo apt-get update -y 
 sudo apt-get install -y libcurl-dev 
 sudo apt install nodejs -y
@@ -20,9 +20,9 @@ sudo npm install url
 
 node    server.js
 nodemon server.js 
-`
+```
 ### Setting up Client
-`
+```
 sudo apt-get upgrade -y 
 sudo apt-get update  -y 
 sudo apt-get install -y libcurl-dev 
@@ -37,4 +37,4 @@ mv ./conf.t /screamingmars/
 g++ client.cpp -o /screamingmars/bin -lcurl
 
 /screamingmars/bin/client
-`
+```
