@@ -1,0 +1,11 @@
+HTTP Type - eg `http` or `https`
+http
+
+Server Hostname/IP
+4 - localhost
+
+Port
+1002
+
+Location of commands to be executable
+/screamingmars/commands/
