@@ -22,6 +22,16 @@ node    server.js
 nodemon server.js 
 ```
 ### Setting up Client
+
+### Config
+
+First create your own `conf.t` file 
+the formatting of this file is shown in `conf.t.example` 
+
+dont change the line space or anything about its order or what line the values are on 
+as the code reads specific lines and passes them as the config values
+
+
 ```
 sudo apt-get upgrade -y 
 sudo apt-get update  -y 
