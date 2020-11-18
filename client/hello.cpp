@@ -41,7 +41,7 @@ int main(void) {
   std::string port                   = "";
   std::string commandStorageLocation = "";
 
-  std::ifstream infile("/screamingmars/conf.t");
+  const std::ifstream infile("/screamingmars/conf.t");
 
   std::cout << "Screaming Mars Config" << std::endl;
 
