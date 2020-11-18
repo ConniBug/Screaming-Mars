@@ -51,7 +51,7 @@ this will indicate to the web gui what page to show the command button under
 to add it to the perm/non perm array you would append 
 `["Command File name should match the name in array 'ster'", "Display name in web GUI"]`
 
-In out Example we would create this 
+In our Example we would create this 
 `["lockAllUsers", "Lock out all currently logged in users"]`
 
 and as this command wont be perminent OS damage we would add it to the non perm array eg
