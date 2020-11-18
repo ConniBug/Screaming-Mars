@@ -9,6 +9,63 @@ I am fully open to pull requests if what you have done is cool or helpful then y
 
 # Setting up server
 
+### Config 
+You can edit the values at the top of the `server.js` such as the port [here](https://github.com/ConniTheKiwi/Screaming-Mars/blob/352a0447806f727fc6b75138ade72aac5a56ba59/server/server.js#L3)
+
+to add more valid commands modify these lines
+
+```
+// Valid commands
+var ster = ["shutdown", "SpamShutdown", "SayHey", "delall"];
+
+var commandsNonPerm = [ ["shutdown", "Shutdown"], 
+                 ["SpamShutdown", "Perm Shutdown"], 
+                 ["SayHey", "Display Hello Message"] 
+];
+                 
+var commandsPerm = [ ["delall", "Erase Device"] ];
+```
+
+add the name of the commands file name from the clients commands folder of the `.sh` script to execute(without the extention) 
+
+for example if you had 
+```
+/
+    /screamingmars
+        /commands
+            /lockAllUsers.sh
+```
+
+you would add `lockAllUsers` to the `ster` array eg
+
+```
+// Valid commands
+var ster = ["shutdown", "SpamShutdown", "SayHey", "delall", "lockAllUsers"];
+```
+
+then you must add the command and the text to be shown on the Web GUI for that command
+to either the non perm array or the perm array
+
+this will indicate to the web gui what page to show the command button under
+
+to add it to the perm/non perm array you would append 
+`["Command File name should match the name in array 'ster'", "Display name in web GUI"]`
+
+In out Example we would create this 
+`["lockAllUsers", "Lock out all currently logged in users"]`
+
+and as this command wont be perminent OS damage we would add it to the non perm array eg
+
+```
+var commandsNonPerm = [ ["shutdown", "Shutdown"], 
+                 ["SpamShutdown", "Perm Shutdown"], 
+                 ["SayHey", "Display Hello Message"],
+                 ["lockAllUsers", "Lock out all currently logged in users"]
+];
+```
+
+And thats all.
+
 ### Installation
 ```
 sudo apt-get update -y 
