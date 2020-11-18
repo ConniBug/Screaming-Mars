@@ -7,7 +7,9 @@ but is assumed to work on windows with a little compatibility
 # Contributing
 I am fully open to pull requests if what you have done is cool or helpful then your pull will be accepted
 
-# Setting up server
+# Setup
+
+## Setting up server
 sudo apt-get update -y 
 sudo apt-get install -y libcurl-dev 
 sudo apt install nodejs -y
@@ -18,7 +20,7 @@ sudo npm install url
 node    server.js
 nodemon server.js 
 
-# Setting up Client
+## Setting up Client
 
 sudo apt-get upgrade -y 
 sudo apt-get update  -y 
