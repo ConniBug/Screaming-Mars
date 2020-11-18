@@ -44,7 +44,6 @@ int main(void) {
   const std::ifstream infile("/screamingmars/conf.t");
 
   std::cout << "Screaming Mars Config" << std::endl;
-
   int cnfOffset = 0;
   int lnCnt = 0;
   for( std::string line; getline( infile, line ); ) {
@@ -65,9 +64,19 @@ int main(void) {
     std::cout << ": " << line << std::endl;
     lnCnt++;
   }
+  std::cout << "------------------------" << std::endl;
 
   std::string path = httpType + "://" + hostname + ":" + port;
   std::cout << path << std::endl;
+
+  std::string deviceID = GetStdoutFromCommand("ifconfig | grep ether").substr(14, 17);
+
+  commandList = GetStdoutFromCommand("ls /screamingmars/commands/");
+  std::cout << "-----------------------------------------" << std::endl;
+  std::cout << commandList << std::endl;
+  std::cout << "======" << std::endl;
+    
+  std::cout << "Starting..." << std::endl;
 
   while(true) {
       CURL *curl;
@@ -86,7 +95,6 @@ int main(void) {
       curl3 = curl_easy_init();
 
       if(curl) {
-          std::string deviceID = GetStdoutFromCommand("ifconfig | grep ether").substr(14, 17);
           std::string url = path + "/info?deviceID=" + deviceID;
 
           std::cout << url << std::endl;
@@ -123,11 +131,6 @@ int main(void) {
           std::cout << "|" << readBuffer3 << "|" << std::endl;
 
           while(true) {
-            commandList = GetStdoutFromCommand("ls ./commands/");
-            std::cout << "-----------------------------------------" << std::endl;
-            std::cout << commandList << std::endl;
-            std::cout << "======" << std::endl;
-
             CURL *curl4;
             CURLcode res4;
             std::string readBuffer4;
