@@ -2,6 +2,8 @@ const http = require('http');
 const url = require('url');
 const port = 1040;
 
+var versionNumber = "V 0.1.2.0";
+
 const fs = require('fs');
 
 // Valid commands
@@ -68,7 +70,7 @@ function displayHeader(content, urlObj) {
             <input type="hidden" id="type" name="type" value=Home>
             
             <h1 style="font-size: 100%;">Rawr welcome fam idk what to put here rawrrrrrr!~</h1>
-            <h1 style="font-size: 100%;">Version: 0.2.0.1!~</h1>
+            <h1 style="font-size: 100%;">Version: ${versionNumber}!~</h1>
             <h1 hidden="true" style="font-size: 100%;">Conni!~#0920~</h1>
             
         `;
@@ -86,32 +88,28 @@ http.createServer((req, res) => {
 
     pathN = urlObj.pathname;
 
-    console.log("1");
     console.log(pathN);
 
-    var AddAction = 0;
+    var AddAction = false;
     
     if(urlObj.query.type === "NonPerm") {
         pathN = nonPerm;
-        AddAction = 1;
+        AddAction = true;
     }
     else if (urlObj.query.type === "Perm") {
         pathN = Perm;
-        AddAction = 1;
+        AddAction = true;
     }
     else if (urlObj.query.type === "Home") {
      	content += `<script>setTimeout(function(){location.reload()},${msRefreshCooldown});</script>`;
      	pathN = SelectADevice;
     }
 
-    console.log("2");
-    console.log(pathN);
-
     if(pathN === info) {
         if(urlObj.query.deviceID) {
-            content  = `Server Version: V0.0.0.1b - Client MAC: ${urlObj.query.deviceID}`;
+            content  = `Server Version: ${versionNumber} - Client MAC: ${urlObj.query.deviceID}`;
         } else {
-            content  = `Server Version: V0.0.0.1b`;
+            content  = `Server Version: ${versionNumber}`;
         }
 
         if(urlObj.query.data === "Jobs") {
@@ -170,18 +168,16 @@ http.createServer((req, res) => {
             res.end();
         }
     }
-    else if(pathN === addAction || AddAction === 1) {
+    else if(pathN === addAction || AddAction === true) {
         
-        console.log(`Add action! -${urlObj.query.action}-`);
+        console.log(`Adding new action! -${urlObj.query.action}-`);
 
         var indx = devices_MACS.indexOf(`${urlObj.query.deviceID}`);
 
         if(ster.includes(urlObj.query.action)) {
             if(devices_Actions.includes(urlObj.query.action)) {
-              //  content = "Action has already been queued!";
               console.log("Action has already been queued!");
             } else {
-              //  content = "Action queued with success!";
                 console.log("Action queued with success!");
                 console.log(devices_Actions);
                 console.log(devices_Actions_Ip);
@@ -253,6 +249,7 @@ http.createServer((req, res) => {
             content  += `<form action="${addAction}" method="get"><input type="hidden" id="type" name="type" value=Perm><input type="hidden" id="deviceID" name="deviceID" value=${urlObj.query.deviceID}><input type="hidden" id="action" name="action" value=${commandName[0]}><input type="submit" value="${commandName[1]}"></form>`;
         });
         
+        // Give a response
         res.writeHead(200, {
             'content-type': 'text/html;charset=utf-8',
         });
