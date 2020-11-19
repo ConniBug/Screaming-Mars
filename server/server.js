@@ -67,12 +67,7 @@ function displayHeader(content, urlObj) {
                 content += `<br>-> ${e} - queued by ${devices_Actions_Ip[indx]}`;
             }
         })
-
-        content += `
-        <br>
-            <input type="submit" value="Device List">
-        `;    
-
+        content += `   <br><input type="submit" value="Device List">    `;    
     }
     else {
         content  += 
@@ -91,17 +86,19 @@ function displayHeader(content, urlObj) {
     return content;
 }
 
+function refreshHeader() {
+	return `<script>setTimeout(function(){location.reload()},${msRefreshCooldown});</script>`;
+}
+
 http.createServer((req, res) => {
     let content = '';
-
     const urlObj = url.parse(req.url, true);
-
     pathN = urlObj.pathname;
-
     console.log(pathN);
 
     var AddAction = false;
     
+	// ?type=NonPerm
     if(urlObj.query.type === "NonPerm") {
         pathN = nonPerm;
         AddAction = true;
@@ -111,11 +108,13 @@ http.createServer((req, res) => {
         AddAction = true;
     }
     else if (urlObj.query.type === "Home") {
-     	content += `<script>setTimeout(function(){location.reload()},${msRefreshCooldown});</script>`;
+     	content += refreshHeader();
      	pathN = SelectADevice;
     }
 
+     // /info
     if(pathN === info) {
+	    // ?deviceID=4234234
         if(urlObj.query.deviceID) {
             content  = `Server Version: ${versionNumber} - Client MAC: ${urlObj.query.deviceID}`;
         } else {
@@ -141,7 +140,7 @@ http.createServer((req, res) => {
     }
     else if(pathN === SelectADevice) {
         content = displayHeader(content, urlObj);
-     	content += `<script>setTimeout(function(){location.reload()},${msRefreshCooldown});</script>`;
+     	content += refreshHeader();
      	        
         var i = 0;
         devices_MACS.forEach(r => {
@@ -253,7 +252,7 @@ http.createServer((req, res) => {
     else if(pathN === Perm) {
         content = displayHeader(content, urlObj);
 
-        content += `<script>setTimeout(function(){location.reload()},${msRefreshCooldown});</script>`;
+        content += refreshHeader();
 
         commandsPerm.forEach(commandName => {
             content  += `<form action="${addAction}" method="get"><input type="hidden" id="type" name="type" value=Perm><input type="hidden" id="deviceID" name="deviceID" value=${urlObj.query.deviceID}><input type="hidden" id="action" name="action" value=${commandName[0]}><input type="submit" value="${commandName[1]}"></form>`;
@@ -263,7 +262,6 @@ http.createServer((req, res) => {
         res.writeHead(200, {
             'content-type': 'text/html;charset=utf-8',
         });
-        
         res.write(content);
         res.end();
     }
