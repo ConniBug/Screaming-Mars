@@ -10,7 +10,7 @@ I am fully open to pull requests if what you have done is cool or helpful then y
 # Setting up server
 
 ### Config 
-You can edit the values at the top of the `server.js` such as the port [here](https://github.com/ConniTheKiwi/Screaming-Mars/blob/352a0447806f727fc6b75138ade72aac5a56ba59/server/server.js#L3)
+You can edit the values at the top of the `server.js` such as the port at the top of the `server.js` file `const port = 1040;`
 
 to add more valid commands modify these lines
 
