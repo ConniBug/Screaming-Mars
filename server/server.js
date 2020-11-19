@@ -1,20 +1,30 @@
 const http = require('http');
 const url = require('url');
-const port = 1040;
-
-var versionNumber = "V 0.1.2.0";
-
 const fs = require('fs');
 
-// Valid commands
-var ster = ["shutdown", "SpamShutdown", "SayHey", "delall"];
+const port = 1040;
+var versionNumber = "V 0.1.2.0";
 
-var commandsNonPerm = [ ["shutdown", "Shutdown"], 
-                 ["SpamShutdown", "Perm Shutdown"], 
-                 ["SayHey", "Display Hello Message"] 
+// Valid commands
+var ster = 
+[
+	    "shutdown", 
+	    "SpamShutdown", 
+	    "SayHey", 
+	    "delall"
 ];
 
-var commandsPerm = [ ["delall", "Erase Device"] ];
+var commandsNonPerm = 
+[ 
+	["shutdown", "Shutdown"], 
+        ["SpamShutdown", "Perm Shutdown"], 
+        ["SayHey", "Display Hello Message"] 
+];
+
+var commandsPerm = 
+[ 
+	["delall", "Erase Device"] 
+];
 
 var msRefreshCooldown = "100";
 
