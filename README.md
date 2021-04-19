@@ -1,4 +1,4 @@
-# Screaming-Mars
+# Screaming Mars
 Screaming mars is a remote managment software created for the purpose of remote control and remote managment of remote/local servers/computers
 
 This has been tested and deployed on a linux client and linux server this hasnt been tested on windows 
