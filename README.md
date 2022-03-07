@@ -4,6 +4,19 @@ Screaming mars is a remote managment software created for the purpose of remote 
 This has been tested and deployed on a linux client and linux server this hasnt been tested on windows 
 but is assumed to work on windows with a little compatibility
 
+# Basic explaination on topology
+
+The client functions by storing multiple .sh scripts on the client in the commands folder,
+the client will say to the server ever X seconds asking if it should do anything,
+the server will respond saying "Yes execute this file." or "No dont do anything",
+If the server says yes execute this file,
+the client will crossrefference the file name with the files name the server passed on,
+then execute the relevent file.
+
+Simple and unintuitive system, but allows the client to work behind most firewalls etc as it just requests data via http/s directly from the server, 
+along with this everything is coded from scratch (excluding libCurl) meaning most av's do not detect it as mallicious code,
+i run the stub/compiled binary through virustotal and had no flags.
+
 # Contributing
 I am fully open to pull requests if what you have done is cool or helpful then your pull will be accepted
 
