@@ -119,7 +119,3 @@ g++ client.cpp -o /screamingmars/bin -lcurl
 
 /screamingmars/bin/client
 ```
-
-# Legal Stuff
-I am not be responsible for any direct or indirect damage caused due to the usage of this tool.
-This software is built for Internal usage only.
